@@ -1,6 +1,6 @@
 # GTM Engineering Portfolio — HeeGun Eom
 
-**I'm a GTM operator who builds the AI systems that make sales and marketing teams faster:** AI-augmented attribution, account research, and personalized outbound, built against a real go-to-market stack (CRM, outbound, ABM/intent, paid, call recordings, product analytics).
+**I'm a GTM operator who builds the AI systems that make sales and marketing teams faster:** AI-augmented attribution, account research, personalized outbound, and an AI-visibility (GEO) content engine, built against a real go-to-market stack (CRM, outbound, ABM/intent, paid, call recordings, product analytics) and a production marketing site.
 
 Most go-to-market work is described in decks. This is the work itself: production AI agents and workflows I built and ran inside a B2B AI company's revenue org. Each system below solved a concrete GTM problem, integrates multiple platforms through their APIs, and encodes the judgment of someone who has actually run pipeline.
 
@@ -35,6 +35,12 @@ The layer that makes the three systems above possible. Two kinds of work: I **bu
 
 **Stack:** TypeScript MCP servers · typed REST clients + tool schemas · OAuth / token auth · stdio + HTTP transports · multi-MCP orchestration
 **Why it matters:** agents are only as capable as the tools they can call. Building and composing those tools is the GTM-engineering work under everything else here.
+
+### 5. [GEO Content Engine](./geo-content-engine/) — AI-visibility glossary
+The marketing side of the same skill set. I audited a site's search + AI-visibility footprint (Semrush MCP), defined a citation-optimized content strategy from published GEO research, generated a ~100-term glossary by orchestrating **12 nested Claude instances** (each running per-term research), verified it, and shipped it to a production Next.js site as MDX pages with full AI-citation structured data.
+
+**Stack:** Semrush MCP · /technical-research · /nest-claude (12-agent fleet) · /audit · Next.js / MDX + JSON-LD
+**Impact:** ~100 AI-citable pages shipped · ~339K monthly searches targeted · full FAQ/DefinedTerm/HowTo schema
 
 ---
 
