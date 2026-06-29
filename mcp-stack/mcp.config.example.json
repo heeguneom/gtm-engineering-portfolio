@@ -1,0 +1,57 @@
+{
+  "_comment": "EXAMPLE config showing the GTM MCP stack I built and wired up. Sanitized: every credential is a ${ENV_VAR} placeholder, all paths are relative, no real tokens or hosted URLs. Servers marked 'custom-built' are MCP servers I wrote; the rest are published servers I configured into the stack.",
+
+  "mcpServers": {
+    "hubspot-admin": {
+      "_note": "custom-built — HubSpot Admin MCP server with full platform control",
+      "command": "node",
+      "args": ["./mcp-servers/hubspot-admin/dist/index.js"],
+      "env": { "HUBSPOT_TOKEN": "${HUBSPOT_TOKEN}" }
+    },
+
+    "unifygtm": {
+      "_note": "custom-built — MCP server for the Unify GTM Data API",
+      "command": "node",
+      "args": ["./mcp-servers/unifygtm/build/index.js"],
+      "env": { "UNIFYGTM_API_KEY": "${UNIFYGTM_API_KEY}" }
+    },
+
+    "outreach": {
+      "_note": "custom-built — MCP server for the Outreach.io API (stdio). Also deployed as an HTTP-transport variant.",
+      "command": "node",
+      "args": ["./mcp-servers/outreach/build/index.js"],
+      "env": {
+        "OUTREACH_CLIENT_ID": "${OUTREACH_CLIENT_ID}",
+        "OUTREACH_CLIENT_SECRET": "${OUTREACH_CLIENT_SECRET}",
+        "OUTREACH_REFRESH_TOKEN": "${OUTREACH_REFRESH_TOKEN}"
+      }
+    },
+
+    "linkedin-ads": {
+      "_note": "custom-built — MCP server for the LinkedIn Marketing API (Ads Analytics)",
+      "command": "node",
+      "args": ["./mcp-servers/linkedin-ads/build/index.js"],
+      "env": { "LINKEDIN_ACCESS_TOKEN": "${LINKEDIN_ACCESS_TOKEN}" }
+    },
+
+    "apollo-io": {
+      "_note": "published server I configured — sales-intelligence enrichment + search",
+      "command": "npx",
+      "args": ["-y", "apollo-io-mcp-server@latest"],
+      "env": { "APOLLO_API_KEY": "${APOLLO_API_KEY}" }
+    },
+
+    "posthog": {
+      "_note": "published server I configured — product analytics (HogQL)",
+      "type": "http",
+      "url": "https://<posthog-mcp-host>/mcp",
+      "headers": { "Authorization": "Bearer ${POSTHOG_API_KEY}" }
+    },
+
+    "google-ads": {
+      "_note": "published server I configured — paid-search analytics (GAQL)",
+      "type": "http",
+      "url": "https://<google-ads-mcp-host>/mcp"
+    }
+  }
+}
