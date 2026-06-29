@@ -35,6 +35,18 @@ I did not author these, but I integrated, credentialed, and orchestrated them, b
 
 The engineering here is composition, not authorship: building agents and skills that orchestrate several published MCPs together into something none of them does alone.
 
+## Deployment & the OAuth token-exchange problem
+
+Several of these APIs (Outreach, LinkedIn Ads, Google Ads) use OAuth 2.0, which created a real problem for a local stdio MCP server. OAuth's authorization-code flow needs a **stable, public redirect URI**, and access tokens have to be **refreshed on a schedule**. Running that locally meant tunneling an OAuth callback through ngrok and managing refresh tokens on disk, fragile, and not something you can hand to a teammate.
+
+The fix: I deployed the HTTP-transport MCP servers to **Google Cloud Run**. The hosted service:
+
+- owns a **stable public URL**, so it can serve as the OAuth redirect URI (no ngrok tunnel)
+- performs the **authorization-code and refresh-token exchange server-side**, keeping long-lived credentials off local machines
+- exposes the MCP endpoint behind a **bearer token**, so an agent connects to one authenticated URL
+
+In practice the agent config points at a `https://<service>-<id>.<region>.run.app/mcp` endpoint instead of spawning a local process, and the entire OAuth lifecycle is handled in the cloud. This is what made the Outreach, LinkedIn Ads, and Google Ads integrations reliable enough to build agents on top of. (An earlier `outreach-mcp-http` variant runs the same idea on Vercel serverless functions.)
+
 ## The integration surface (why this matters)
 
 Together, the stack gives an agent a single operating surface across the entire funnel:
@@ -52,6 +64,7 @@ That coverage is exactly what lets one agent do cross-channel work no single too
 ## What this demonstrates
 
 - **Hands-on protocol + API engineering:** building MCP servers in TypeScript, wrapping REST APIs with typed clients and tool schemas, handling OAuth and token-based auth.
+- **Cloud deployment + auth engineering:** deploying MCP servers to Google Cloud Run (and Vercel) to solve OAuth's public-redirect and token-refresh constraints server-side, behind bearer auth, so integrations are reliable and shareable rather than local and fragile.
 - **Composition over authorship:** building agents and skills on top of published MCPs (Apollo, Crustdata, Clay, PostHog) and orchestrating several at once into workflows none performs alone.
 - **Systems thinking:** treating the GTM stack as one programmable surface rather than a set of disconnected SaaS tools.
 - **The foundation for AI-native GTM:** agents are only as capable as the tools they can call. Building and composing those tools is the GTM-engineering work underneath everything else in this portfolio.

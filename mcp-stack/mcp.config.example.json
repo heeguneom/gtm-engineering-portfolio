@@ -27,6 +27,13 @@
       }
     },
 
+    "outreach-remote": {
+      "_note": "custom-built — same Outreach server deployed to Google Cloud Run. Handles the OAuth token exchange server-side (stable redirect URI + refresh), so the agent just hits one bearer-authed URL.",
+      "type": "http",
+      "url": "https://<service>-<id>.us-central1.run.app/mcp",
+      "headers": { "Authorization": "Bearer ${MCP_AUTH_TOKEN}" }
+    },
+
     "linkedin-ads": {
       "_note": "custom-built — MCP server for the LinkedIn Marketing API (Ads Analytics)",
       "command": "node",
