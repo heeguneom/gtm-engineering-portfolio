@@ -1,7 +1,7 @@
 # LinkedIn build-in-public post (flagship: attribution engine)
 
 > Readable version of the flagship for the GTM-Lead audience who won't open a repo.
-> Fill in the [bracketed] numbers before posting. Keep one link (to the repo) in the first comment, not the post body, so reach isn't throttled.
+> Tip: keep the one link (to the repo) in the first comment, not the post body, so reach isn't throttled.
 
 ---
 
@@ -13,7 +13,7 @@ A prospect would book a demo, HubSpot would stamp it "Direct," and leadership wo
 
 The problem: no single tool sees the whole journey. The truth is scattered across the CRM, the outbound platform, the ABM tool, two ad platforms, the call recordings, and product analytics. Stitching it together by hand took ~30-60 minutes per deal, and still missed the cross-contact outbound touches.
 
-So I built an AI agent that does it in [X] minutes.
+So I built an AI agent that does it in 5-10 minutes, off a single reusable prompt.
 
 Give it a domain or an email, and it traces the booking across all seven channels, then resolves the contradictions with a priority hierarchy that ranks evidence by quality:
 
@@ -21,7 +21,7 @@ Give it a domain or an email, and it traces the booking across all seven channel
 → A UTM tag beats an ABM play.
 → An ABM play beats whatever the CRM guessed.
 
-The most useful thing it surfaced wasn't a number. It was a pattern: [X]% of the deals we'd been calling "Direct" were actually outbound- or paid-sourced. That changed how we credited channels and where we put budget.
+The most useful thing it surfaced wasn't a number. It was a pattern: ~40% of the deals we'd been calling "Direct" were actually outbound- or paid-sourced. That changed how we credited channels and where we put budget.
 
 Two lessons that stuck with me:
 

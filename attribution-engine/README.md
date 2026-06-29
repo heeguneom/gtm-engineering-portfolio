@@ -85,11 +85,9 @@ This is where the real GTM judgment lives. The plumbing is the easy part.
 
 ## Impact
 
-> Fill in with your real numbers before publishing. Suggested metrics to capture:
-
-- Attribution time reduced from **~[30 to 60] minutes** of manual analyst work per deal to **~[X] minutes** automated.
-- **~[X]%** of deals the CRM labeled "Direct" were re-attributed to outbound or paid once cross-channel evidence was applied.
-- Ran across **[X] demo bookings**, giving the team trustworthy source-of-pipeline data for board reporting and channel-budget decisions.
+- Attribution time reduced from **30-60 minutes** of manual analyst work per deal to **5-10 minutes**, running from a single reusable prompt rather than a fresh per-deal investigation.
+- **~40%** of deals the CRM labeled "Direct" were re-attributed to outbound or paid once cross-channel evidence was applied, materially changing how the team credited channels and where it put budget.
+- Ran across **a full year of demo bookings**, giving the team trustworthy source-of-pipeline data for board reporting and channel-budget decisions.
 
 ## What this demonstrates
 

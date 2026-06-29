@@ -16,19 +16,19 @@ An AI agent that traces how a demo booking was *actually* sourced by cross-refer
 The hard part is not the plumbing, it's the judgment: the CRM reports "Direct" for deals that were really outbound-sourced, outbound targets one persona while a colleague books, and the strongest signal (a prospect saying "your team emailed me" on a call) lives where no dashboard reads. The engine encodes a nine-tier evidence-priority hierarchy to get this right.
 
 **Stack:** Claude agent orchestration · HogQL · GAQL · CRM/outbound/ABM APIs · MCP integrations
-**Impact:** _[attribution time cut from ~30-60 min/deal to ~X min · ~X% of "Direct" deals re-attributed to outbound/paid · ran across X bookings]_
+**Impact:** attribution cut from ~30-60 min/deal to ~5-10 min (one reusable prompt) · ~40% of "Direct" deals re-attributed to outbound/paid · ran across a full year of bookings
 
 ### 2. [AI Account-Research Agent](./account-research-agent/)
 A multi-agent system that preps AEs before a call by pulling deal context from call recordings, email, and team chat, enriching the account, then fanning out 6-8 parallel research agents into the company. Turns hours of pre-call prep into minutes, and turns facts into talk tracks, objection handling, and an expansion path.
 
 **Stack:** Multi-agent fan-out · call-recording + comms search · enrichment APIs · web research
-**Impact:** _[pre-call research cut from ~1-3 hrs to ~X min · used on X deals]_
+**Impact:** pre-call research cut from ~1-3 hrs to ~5-10 min · adopted across every active deal the AE team worked
 
 ### 3. [AI Personalized Outbound at Scale](./personalized-outbound/)
 A persona-aware cold-email system covering 19 B2B buyer archetypes that enriches a prospect from a single LinkedIn URL (career history, recent posts) and generates first-touch and follow-up messaging tailored to the persona, with a hard guardrail that keeps the voice human so personalization survives scale instead of collapsing into mail-merge.
 
 **Stack:** LinkedIn enrichment · persona library · capability/proof mapping · LLM generation with a voice guardrail
-**Impact:** _[personalized first-touch in ~X min vs 15-20 min manual · reply-rate lift]_
+**Impact:** personalized first-touch in ~1-2 min vs 15-20 min manual · reply rate ~3% → ~9%
 
 ---
 

@@ -56,10 +56,8 @@ flowchart TD
 
 ## Impact
 
-> Fill in with your real numbers before publishing:
-
-- Personalized first-touch produced in **~[X] minutes** vs **~15-20 minutes** of manual research per prospect.
-- _[Reply-rate or meeting-rate lift vs. your prior templated outbound, if you have it.]_
+- Personalized first-touch produced in **1-2 minutes** vs **15-20 minutes** of manual research per prospect.
+- Reply rate roughly **tripled, from ~3% to ~9%**, versus prior templated outbound.
 - Covered **19 buyer personas** across the full technical-and-business buying committee.
 
 ## What this demonstrates

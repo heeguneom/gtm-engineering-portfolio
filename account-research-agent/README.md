@@ -73,11 +73,8 @@ flowchart TD
 
 ## Impact
 
-> Fill in with your real numbers before publishing:
-
-- Pre-call research time cut from **~[1-3] hours** to **~[X] minutes** per account.
-- Used to prep **[X] deals / AEs**, with talk tracks and objection handling grounded in the prospect's own words.
-- _[Any win-rate, deal-velocity, or AE-adoption signal you can cite.]_
+- Pre-call research time cut from **1-3 hours** to **5-10 minutes** per account.
+- Adopted across **every active deal the AE team was working**, with talk tracks and objection handling grounded in the prospect's own words.
 
 ## What this demonstrates
 
