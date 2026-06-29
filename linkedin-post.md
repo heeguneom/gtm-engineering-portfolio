@@ -29,6 +29,7 @@ Then the systems on top write themselves:
 • an account-research agent that preps AEs in minutes
 • personalized outbound that tripled reply rates (3% → 9%)
 • a GEO content engine: ~100 AI-citable pages, built by orchestrating 12 AI agents
+• interactive product demos + animations I vibe-coded into a production marketing site
 
 Two lessons that stuck with me:
 
