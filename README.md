@@ -31,10 +31,10 @@ A persona-aware cold-email system covering 19 B2B buyer archetypes that enriches
 **Impact:** personalized first-touch in ~1-2 min vs 15-20 min manual · reply rate ~3% → ~9%
 
 ### 4. [GTM MCP Stack](./mcp-stack/) — the infrastructure underneath
-The layer that makes the three systems above possible. I built a set of **custom MCP servers** (HubSpot, Unify GTM, Outreach, LinkedIn Ads) that expose the go-to-market stack to AI agents as callable tools, then wired them together with published servers (Apollo, PostHog, Google Ads) into one configuration an agent can operate across the full funnel.
+The layer that makes the three systems above possible. Two kinds of work: I **built custom MCP servers** (HubSpot, Unify GTM, Outreach, LinkedIn Ads) that expose the go-to-market stack to AI agents as callable tools, and I **built agents and skills on top of published MCPs** (Apollo, PostHog, Crustdata, Clay, Google Ads), orchestrating several at once into one surface an agent can operate across the full funnel.
 
-**Stack:** TypeScript MCP servers · typed REST clients + tool schemas · OAuth / token auth · stdio + HTTP transports
-**Why it matters:** agents are only as capable as the tools they can call. Building those tools is the GTM-engineering work under everything else here.
+**Stack:** TypeScript MCP servers · typed REST clients + tool schemas · OAuth / token auth · stdio + HTTP transports · multi-MCP orchestration
+**Why it matters:** agents are only as capable as the tools they can call. Building and composing those tools is the GTM-engineering work under everything else here.
 
 ---
 

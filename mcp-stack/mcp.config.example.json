@@ -35,21 +35,35 @@
     },
 
     "apollo-io": {
-      "_note": "published server I configured — sales-intelligence enrichment + search",
+      "_note": "published — built agents/skills on top of: sales-intelligence enrichment + search",
       "command": "npx",
       "args": ["-y", "apollo-io-mcp-server@latest"],
       "env": { "APOLLO_API_KEY": "${APOLLO_API_KEY}" }
     },
 
+    "crustdata": {
+      "_note": "published — built on top of: LinkedIn person/company enrichment + recent posts (powers personalized-outbound)",
+      "type": "http",
+      "url": "https://<crustdata-mcp-host>/mcp",
+      "headers": { "Authorization": "Bearer ${CRUSTDATA_API_KEY}" }
+    },
+
+    "clay": {
+      "_note": "published — built on top of: AI-native GTM data enrichment + workflow tooling",
+      "type": "http",
+      "url": "https://<clay-mcp-host>/mcp",
+      "headers": { "Authorization": "Bearer ${CLAY_API_KEY}" }
+    },
+
     "posthog": {
-      "_note": "published server I configured — product analytics (HogQL)",
+      "_note": "published — built on top of: product analytics via HogQL (powers attribution engine)",
       "type": "http",
       "url": "https://<posthog-mcp-host>/mcp",
       "headers": { "Authorization": "Bearer ${POSTHOG_API_KEY}" }
     },
 
     "google-ads": {
-      "_note": "published server I configured — paid-search analytics (GAQL)",
+      "_note": "published — built on top of: paid-search analytics via GAQL",
       "type": "http",
       "url": "https://<google-ads-mcp-host>/mcp"
     }
