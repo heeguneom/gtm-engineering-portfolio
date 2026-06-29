@@ -4,6 +4,8 @@ An AI agent that traces how a B2B demo booking was actually sourced by cross-ref
 
 > Built as a working internal tool at a B2B AI company. Customer names, account IDs, and credentials have been removed for this public writeup.
 
+**Source:** [agent.md](./agent.md) — the sanitized agent definition.
+
 ---
 
 ## The problem

@@ -4,6 +4,8 @@ A multi-agent system that prepares an account executive for a deal by fusing int
 
 > Built as an internal tool at a B2B AI company. Customer names and internal specifics removed for this public writeup.
 
+**Source:** [skill.md](./skill.md) — the sanitized skill definition.
+
 ---
 
 ## The problem

@@ -4,6 +4,8 @@ A persona-aware cold-email system that enriches a prospect from a single LinkedI
 
 > Built as an internal tool at a B2B AI company. Product proof points and customer names removed for this public writeup.
 
+**Source:** [skill-architecture.md](./skill-architecture.md) — sanitized design spec. The raw skill is withheld as employer-confidential GTM material.
+
 ---
 
 ## The problem
