@@ -10,7 +10,7 @@ Most go-to-market work is described in decks. This is the work itself: productio
 
 ## At a glance
 
-Two foundation layers (the context and tools AI needs) under four production systems. Everything below was built and run inside a B2B AI company's revenue org.
+Two foundation layers (the context and tools AI needs) under five production systems. Everything below was built and run inside a B2B AI company's revenue org.
 
 | | Piece | What it is | Headline result |
 |---|-------|------------|-----------------|
@@ -20,6 +20,7 @@ Two foundation layers (the context and tools AI needs) under four production sys
 | System | [Account-Research Agent](./account-research-agent/) | Multi-agent AE call prep | pre-call research **1-3 hrs → 5-10 min** |
 | System | [Personalized Outbound](./personalized-outbound/) | 19-persona cold-email system | reply rate **~3% → ~9%** |
 | System | [GEO Content Engine](./geo-content-engine/) | AI-visibility glossary program | **~100** AI-citable pages · **~339K** monthly searches · 12-agent build |
+| System | [Interactive Demos & Animations](./interactive-demos/) | Vibe-coded product demos + animations on a production site | **#1 contributor** to the home product UI · 20 animation components, live |
 
 **Who:** GTM operator (sales + marketing + hands-on AI) · 📍 SF · open to GTM Engineer / GTM Lead.
 **Also here:** [pitch.md](./pitch.md) (short blurbs) · [linkedin-post.md](./linkedin-post.md). Full detail below.
@@ -69,6 +70,12 @@ The marketing side of the same skill set. I audited a site's search + AI-visibil
 
 **Stack:** Semrush MCP · /technical-research · /nest-claude (12-agent fleet) · /audit · Next.js / MDX + JSON-LD
 **Impact:** ~100 AI-citable pages shipped · ~339K monthly searches targeted · full FAQ/DefinedTerm/HowTo schema
+
+### 5. [Interactive Product Demos & Animations](./interactive-demos/)
+The front-end side of marketing engineering. I vibe-coded a large part of a production marketing site, the interactive product demos and the animated product visualizations: I owned the product story, built the interactive mock-ups, and shipped production-ready React components, with the design team polishing the final visuals. Verifiable in git: **#1 contributor to the home-page product UI** (187 repo commits overall).
+
+**Stack:** Next.js / React / TypeScript · CSS keyframes + modules · Motion · Rive (WASM) · Arcade · AI-assisted (vibe) coding
+**Impact:** 20 product-animation components + interactive demos live on the homepage and four persona use-case pages
 
 ---
 
