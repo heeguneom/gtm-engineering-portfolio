@@ -8,6 +8,24 @@ Most go-to-market work is described in decks. This is the work itself: productio
 
 ---
 
+## At a glance
+
+Two foundation layers (the context and tools AI needs) under four production systems. Everything below was built and run inside a B2B AI company's revenue org.
+
+| | Piece | What it is | Headline result |
+|---|-------|------------|-----------------|
+| 🧠 Foundation | [Second Brain](./second-brain/) | AI-ready company knowledge base (Obsidian) | ~340 evidence-backed docs, structured for AI retrieval |
+| 🔌 Foundation | [GTM MCP Stack](./mcp-stack/) | Custom + composed MCP servers | 5 custom servers (HubSpot, Outreach, LinkedIn, Unify) on Cloud Run |
+| ⭐ System | [Attribution Engine](./attribution-engine/) | 7-channel demo-attribution agent | **~40%** of "Direct" deals re-attributed; 30-60 min → **5-10 min** |
+| System | [Account-Research Agent](./account-research-agent/) | Multi-agent AE call prep | pre-call research **1-3 hrs → 5-10 min** |
+| System | [Personalized Outbound](./personalized-outbound/) | 19-persona cold-email system | reply rate **~3% → ~9%** |
+| System | [GEO Content Engine](./geo-content-engine/) | AI-visibility glossary program | **~100** AI-citable pages · **~339K** monthly searches · 12-agent build |
+
+**Who:** GTM operator (sales + marketing + hands-on AI) · 📍 SF · open to GTM Engineer / GTM Lead.
+**Also here:** [pitch.md](./pitch.md) (short blurbs) · [linkedin-post.md](./linkedin-post.md). Full detail below.
+
+---
+
 ## Foundation — the two layers AI-native GTM runs on
 
 ### A. [Second Brain](./second-brain/) — the context layer
