@@ -15,39 +15,33 @@ A persona-aware cold-email generation skill. Given a prospect (ideally a LinkedI
 
 ## Pipeline
 
+```mermaid
+flowchart TD
+    IN(["Input<br/>LinkedIn URL, or persona + company"]):::io --> S1
+    CRUST[("Crustdata MCP<br/>LinkedIn person/company<br/>enrichment + recent posts")]:::mcp --> S1
+    APOLLO[("Apollo MCP<br/>people + company search")]:::mcp --> S1
+    S1["1 · Enrich prospect<br/>person, recent posts, company signals"]:::step --> S2
+    S2["2 · Match persona<br/>19-archetype library"]:::step --> S3
+    S3["3 · Map pain → capability → proof<br/>outcome first, never features"]:::step --> S4
+    S4["4 · Select content CTA + social proof<br/>matched to buying stage"]:::step --> S5
+    S5["5 · Draft<br/>voice guardrail enforced"]:::key --> OUT
+    OUT(["Output<br/>first-touch + multi-step follow-up sequence (optional A/B variants)"]):::io
+
+    classDef io fill:#2E3A4F,stroke:#2E3A4F,color:#ffffff;
+    classDef step fill:#E8F0FE,stroke:#3B6FE0,color:#1A1A1A;
+    classDef key fill:#FFF4E5,stroke:#E0903B,color:#1A1A1A;
+    classDef mcp fill:#EAF7EE,stroke:#3FA66A,color:#1A1A1A;
 ```
-Input (LinkedIn URL  OR  persona + company)
-        │
-        ▼
-1. Enrich prospect
-   - person: name, title, current company, career history
-   - recent posts (top personalization hook)
-   - company: headcount, funding, growth signals
-        │
-        ▼
-2. Match persona  (19-archetype library)
-   - identify the buyer archetype from title/role
-   - load that persona's pain points, buying behavior, anti-patterns
-        │
-        ▼
-3. Map pain → capability → proof
-   - select the capability that addresses the persona's actual pain
-   - attach an industry/size-matched proof point
-   - state OUTCOME first, capability second (never lead with features)
-        │
-        ▼
-4. Select content CTA + social proof
-   - match a resource to the buying stage (awareness / consideration / decision)
-   - add 1-2 industry-matched proof references (follow-ups only)
-        │
-        ▼
-5. Draft  (voice guardrail enforced)
-   - first-touch < 100 words; follow-ups < 150
-   - peer-to-peer voice, one idea per line, plain language
-        │
-        ▼
-Output: first-touch + multi-step follow-up sequence (optional A/B variants)
-```
+
+Step 1 runs entirely on MCP tool calls: from a single LinkedIn URL, the skill calls the **Crustdata MCP** for person/company enrichment and recent posts, and the **Apollo MCP** for people/company search, then merges them into one enriched profile. (See the [MCP stack](../mcp-stack/README.md) for those servers.)
+
+Step detail:
+
+1. **Enrich prospect** (via Crustdata + Apollo MCP) — person (name, title, company, career history), recent posts (top personalization hook), company (headcount, funding, growth signals).
+2. **Match persona** — identify the buyer archetype from title/role, then load that persona's pain points, buying behavior, and anti-patterns.
+3. **Map pain → capability → proof** — select the capability that addresses the persona's actual pain, attach an industry/size-matched proof point, and state outcome first, capability second (never lead with features).
+4. **Select content CTA + social proof** — match a resource to the buying stage (awareness / consideration / decision) and add 1-2 industry-matched proof references (follow-ups only).
+5. **Draft** — first-touch under 100 words, follow-ups under 150; peer-to-peer voice, one idea per line, plain language (voice guardrail enforced).
 
 ## The persona model (19 archetypes)
 
@@ -59,7 +53,7 @@ A message to a Head of Support is constructed differently from one to a CTO: dif
 
 ## Enrichment-driven personalization (the signal-ranking)
 
-From a single LinkedIn URL, the skill pulls person, recent-post, and company data, then ranks hooks by strength rather than blindly inserting variables:
+From a single LinkedIn URL, the skill pulls person, recent-post, and company data through the **Crustdata** and **Apollo** MCP servers, then ranks hooks by strength rather than blindly inserting variables:
 
 1. **Recent relevant post** — strongest hook when present
 2. **Current role + company context** — product-specific angle

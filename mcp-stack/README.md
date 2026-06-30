@@ -47,17 +47,31 @@ The fix: I deployed the HTTP-transport MCP servers to **Google Cloud Run**. The 
 
 In practice the agent config points at a `https://<service>-<id>.<region>.run.app/mcp` endpoint instead of spawning a local process, and the entire OAuth lifecycle is handled in the cloud. This is what made the Outreach, LinkedIn Ads, and Google Ads integrations reliable enough to build agents on top of. (An earlier `outreach-mcp-http` variant runs the same idea on Vercel serverless functions.)
 
+## Putting it in non-technical hands (company-wide rollout)
+
+Building the servers was only half the value; the other half was making them usable by people who do not run code. I rolled the full MCP stack out to the wider company and the sales & marketing team through **Claude Cowork**, so non-technical teammates could use the servers with no local setup, terminals, or credential handling. A rep can ask in plain English to pull sequence performance, research an account, or enrich a prospect, and the same agents and tools I built do the work behind the hosted, authenticated endpoints. That turned infrastructure I built for myself into a shared GTM capability the whole team operates.
+
 ## The integration surface (why this matters)
 
 Together, the stack gives an agent a single operating surface across the entire funnel:
 
+```mermaid
+flowchart TD
+    AGENT([AI agent]):::agent
+    AGENT --> CRM["CRM<br/>HubSpot<br/>(built)"]:::built
+    AGENT --> OUT["Outbound<br/>Outreach<br/>(built)"]:::built
+    AGENT --> ABM["ABM / Intent<br/>Unify<br/>(built)"]:::built
+    AGENT --> ENR["Enrichment<br/>Apollo · Crustdata · Clay<br/>(built on top of)"]:::composed
+    AGENT --> PAID["Paid<br/>LinkedIn · Google<br/>(built + published)"]:::mixed
+    AGENT --> AN["Analytics<br/>PostHog<br/>(built on top of)"]:::composed
+
+    classDef agent fill:#2E3A4F,stroke:#2E3A4F,color:#ffffff;
+    classDef built fill:#E8F0FE,stroke:#3B6FE0,color:#1A1A1A;
+    classDef composed fill:#F1F1F1,stroke:#999999,color:#1A1A1A;
+    classDef mixed fill:#FFF4E5,stroke:#E0903B,color:#1A1A1A;
 ```
-             ┌──────────────────────── AI agent ────────────────────────┐
-             │                                                          │
- CRM         Outbound     ABM/Intent   Enrichment                Paid              Analytics
- (HubSpot)   (Outreach)   (Unify)      (Apollo/Crustdata/Clay)   (LinkedIn,Google) (PostHog)
- [built]     [built]      [built]      [built on top of]         [built+published] [built on top of]
-```
+
+*Legend: **built** = MCP server I authored · **built on top of** = published MCP I composed into agents and skills · **built + published** = a mix (LinkedIn Ads built, Google Ads published).*
 
 That coverage is exactly what lets one agent do cross-channel work no single tool can: trace a demo across seven systems (attribution engine), pull deal context from calls + CRM + enrichment (account research), or enrich a prospect and act on a sequence (outbound).
 
@@ -66,5 +80,6 @@ That coverage is exactly what lets one agent do cross-channel work no single too
 - **Hands-on protocol + API engineering:** building MCP servers in TypeScript, wrapping REST APIs with typed clients and tool schemas, handling OAuth and token-based auth.
 - **Cloud deployment + auth engineering:** deploying MCP servers to Google Cloud Run (and Vercel) to solve OAuth's public-redirect and token-refresh constraints server-side, behind bearer auth, so integrations are reliable and shareable rather than local and fragile.
 - **Composition over authorship:** building agents and skills on top of published MCPs (Apollo, Crustdata, Clay, PostHog) and orchestrating several at once into workflows none performs alone.
+- **Adoption + enablement:** rolling the stack out company-wide through Claude Cowork so non-technical sales and marketing teammates could use it, turning servers I built into a shared capability rather than a personal tool.
 - **Systems thinking:** treating the GTM stack as one programmable surface rather than a set of disconnected SaaS tools.
 - **The foundation for AI-native GTM:** agents are only as capable as the tools they can call. Building and composing those tools is the GTM-engineering work underneath everything else in this portfolio.

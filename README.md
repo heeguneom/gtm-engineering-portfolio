@@ -23,7 +23,7 @@ Two foundation layers (the context and tools AI needs) under five production sys
 | System | [Interactive Demos & Animations](./interactive-demos/) | Vibe-coded product demos + animations on a production site | **#1 contributor** to the home product UI · 20 animation components, live |
 
 **Who:** GTM operator (sales + marketing + hands-on AI) · 📍 SF · open to GTM Engineer / GTM Lead.
-**Also here:** [pitch.md](./pitch.md) (short blurbs) · [linkedin-post.md](./linkedin-post.md). Full detail below.
+**Contact:** heeguneom@gmail.com · 415-819-2176 · [LinkedIn](https://www.linkedin.com/in/heeguneom/) · Full detail below.
 
 ---
 
@@ -92,3 +92,5 @@ The front-end side of marketing engineering. I vibe-coded a large part of a prod
 GTM operator and BDR hiring manager at a B2B AI developer-tools company. Combined background in sales, marketing, and hands-on AI: I both run the go-to-market motion and build the AI systems that power it.
 
 📍 San Francisco · Open to GTM Engineer / GTM Lead roles at AI-native companies.
+
+**Contact:** heeguneom@gmail.com · 415-819-2176 · [LinkedIn](https://www.linkedin.com/in/heeguneom/)

@@ -2,7 +2,9 @@
 
 An end-to-end Generative Engine Optimization (GEO) program: I audited a B2B AI company's search and AI-visibility footprint, defined a citation-optimized content strategy grounded in published GEO research, generated a ~100-term glossary by orchestrating a fleet of AI agents, and shipped it to the production marketing site as structured, AI-citable pages.
 
-> Strategy + research artifacts are internal; the glossary itself is public marketing content. Company name generalized and internal baseline metrics omitted for this writeup.
+**Live:** [inkeep.com/glossary](https://inkeep.com/glossary)
+
+> Strategy + research artifacts are internal; the glossary itself is public marketing content (linked above). Internal baseline metrics omitted for this writeup.
 
 ---
 

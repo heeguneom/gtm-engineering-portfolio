@@ -4,6 +4,10 @@ I vibe-coded a large part of a B2B AI company's production marketing site: the i
 
 > Collaborative work on a private company codebase. This describes my contribution and points to the live result; the source is not reproduced here. Authorship is verifiable in the repo's git history.
 
+**Live:**
+- Marketing site: [inkeep.com](https://inkeep.com/)
+- Interactive demos: [Walkthrough 1](https://app.arcade.software/share/hQcQOB4I8nUdXcxe5LVZ) · [Walkthrough 2](https://app.arcade.software/share/kDbwz2f6NUybqqaL7yqh) · [Walkthrough 3](https://app.arcade.software/share/KqN1yDI8RQER3AI3RX0p)
+
 ---
 
 ## What I did
@@ -39,4 +43,4 @@ Verifiable in git: I'm the **#1 contributor to the home-page product UI** (~116 
 - **Vibe coding to a real bar:** AI-assisted front-end development that survived code review and runs on a live, public marketing site, including the unglamorous production work (layout shift, hydration, mobile, performance).
 - **Product storytelling:** structuring how an abstract AI product is explained and demonstrated to four distinct buyer personas.
 
-> Live proof beats any description for this one. Recommended: link the live homepage and use-case pages here so a reviewer can see the demos and animations running. (Holding the URL out by default to stay consistent with the rest of this repo, which generalizes the employer, your call to add it.)
+> Live proof beats any description for this one. See the links at the top: the live marketing site plus three Arcade walkthroughs of the interactive demos running in production.

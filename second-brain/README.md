@@ -33,23 +33,36 @@ A single, structured knowledge base, maintained as an **Obsidian vault**, that t
 
 ## How it works
 
+```mermaid
+flowchart TD
+    SB(["SECOND BRAIN<br/>Obsidian vault, AI-readable"]):::brain
+    SB --> D1["GTM strategy & analysis"]:::dom
+    SB --> D2["Sales enablement & messaging"]:::dom
+    SB --> D3["Hiring & team ops"]:::dom
+    SB --> D4["Content & web"]:::dom
+    SB --> D5["Product & competitive intel"]:::dom
+    SB --> D6["Compliance & ops"]:::dom
+    classDef brain fill:#2E3A4F,stroke:#2E3A4F,color:#ffffff;
+    classDef dom fill:#E8F0FE,stroke:#3B6FE0,color:#1A1A1A;
 ```
-                          SECOND BRAIN  (Obsidian vault, AI-readable)
-                                       │
-        ┌──────────────┬───────────────┼───────────────┬──────────────┐
-     GTM strategy   Sales enablement  Hiring        Content/web   Product & competitive intel
-        │
-        ▼   each project follows the same evidence-backed pattern:
-   ┌───────────────────────────────────────────────────────────────┐
-   │  frontmatter   title · description · subjects · topics  ← AI discovery
-   │  REPORT.md     synthesis: findings, implications, decisions
-   │  evidence/     primary-source files behind every claim   ← verifiable
-   └───────────────────────────────────────────────────────────────┘
 
-   THE COMPOUNDING LOOP
-   new project ─▶ pull grounded context from the base ─▶ do the work
-        ▲                                                     │
-        └──────────── write back a new evidence-backed report ◀┘
+Every project, in any domain, follows the same evidence-backed pattern:
+
+| Part | Contents | Purpose |
+|------|----------|---------|
+| `frontmatter` | title · description · subjects · topics | AI discovery |
+| `REPORT.md` | synthesis: findings, implications, decisions | the answer |
+| `evidence/` | primary-source files behind every claim | verifiable |
+
+**The compounding loop**
+
+```mermaid
+flowchart LR
+    A(["New project"]):::loop --> B["Pull grounded context<br/>from the base"]:::loop
+    B --> C["Do the work"]:::loop
+    C --> D["Write back a new<br/>evidence-backed report"]:::loop
+    D -->|compounds the base| A
+    classDef loop fill:#FFF4E5,stroke:#E0903B,color:#1A1A1A;
 ```
 
 ### The methodology (why each doc strengthens the others)
