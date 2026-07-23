@@ -38,6 +38,19 @@ I also wrote an actual test suite (`test_chunking.py`, `test_indexer.py`, `test_
 
 Once chunks are embedded, I built a `suggest_links` tool on top of the same index: it mean-pools each file's chunk embeddings into a single per-file "centroid" vector, then compares files to each other to surface semantically-similar reports that aren't currently cross-linked, no new embedding cost, since it reuses vectors the indexer already computed. It's suggest-only by design (it never writes a link itself); a human decides whether the suggestion is real.
 
+## How this coexists with Second Brain's knowledge graph
+
+Second Brain's actual navigational structure is an Obsidian **wiki-link graph**: explicit `[[links]]` between documents, hand-authored whenever I write a report that references prior work. That graph is precise but incomplete, it only contains a connection if I happened to notice it and typed the link. The RAG layer doesn't replace that graph or write to it, it **audits** it:
+
+- **`suggest_links`** reuses the exact same chunk embeddings the indexer already computed, no new embedding cost, by mean-pooling each file's chunks into one per-file "centroid" vector, then ranking file *pairs* by cosine similarity between centroids (cheap: file-count-squared comparisons instead of chunk-count-squared).
+- It cross-references those high-similarity pairs against the graph as it exists today, parsed directly from the already-loaded chunk text (handling `[[Target]]`, `[[Target|Display]]`, and `[[Target#Heading]]` forms), and surfaces only the pairs that are **semantically close but not yet linked**, candidate edges the graph is missing.
+- **Fail-open by design:** if a `[[link]]`'s target is ambiguous (matches zero or multiple files), it's treated as "not linked" rather than guessed at, a redundant suggestion is a cheap mistake; a real gap silently marked "already covered" is not.
+- **Suggest-only, never writes:** the tool (and the automation built on it) never inserts a link itself. It produces a ranked list; a human decides whether the connection is real.
+- **Noise, found empirically and excluded precisely:** the first real run put near-duplicate tailored resumes at the top of the list (95 files sharing one template, scoring 0.97-1.0 against each other, crowding out 14 of the top 15 results). Rather than a broad heuristic, I added a precise filename-pattern exclusion once the actual failure mode was visible, engineering informed by real output, not speculation.
+- **Automated on a schedule:** a weekly job reindexes the vault, calls `suggest_links`, filters known noise clusters, dedupes against pairs already surfaced in a prior week, and writes a plain digest file, so the graph gets a standing, low-effort audit instead of relying on me remembering to check.
+
+In a live session, the two systems serve different moments: `semantic_search` finds the right *entry point* by meaning when I don't know what to search for by name; the wiki-link graph then lets whoever's reading (me, or Claude) *navigate outward* from that document via its existing explicit connections. The RAG layer's job is finding the door; the graph's job is the rooms connected to it.
+
 ## What this demonstrates
 
 - **Applied ML engineering, not just prompting:** chunking-strategy design, embedding-model selection under real constraints (cost, privacy, latency), and vector similarity search, implemented and understood end to end, not called through someone else's framework.

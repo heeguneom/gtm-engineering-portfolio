@@ -37,6 +37,8 @@ Everything below describes how the corpus is *organized*. Separately (as a perso
 
 The vault has also grown since this system was first documented, from ~340 tracked documents to ~556 files (~1.04M words) at last count, growth the semantic layer has to keep pace with, which is exactly why `reindex` is exposed as a callable tool rather than a one-time script.
 
+The two retrieval mechanisms don't just coexist, the semantic layer actively **audits** the wiki-link graph described below: a `suggest_links` tool built on the same embeddings surfaces document pairs that are conceptually related but not yet cross-linked, a standing, low-effort check on whether the hand-authored graph has gaps. Full mechanics in the [Semantic Search README](../semantic-search-mcp/#how-this-coexists-with-second-brains-knowledge-graph).
+
 ## How it works
 
 ```mermaid
