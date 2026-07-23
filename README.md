@@ -14,13 +14,16 @@ Two foundation layers (the context and tools AI needs) under five production sys
 
 | | Piece | What it is | Headline result |
 |---|-------|------------|-----------------|
-| 🧠 Foundation | [Second Brain](./second-brain/) | AI-ready company knowledge base (Obsidian) | ~340 evidence-backed docs, structured for AI retrieval |
+| 🧠 Foundation | [Second Brain](./second-brain/) | AI-ready company knowledge base (Obsidian) | ~340 evidence-backed docs, structured for AI retrieval, now semantically searchable (see 🧪 below) |
 | 🔌 Foundation | [GTM MCP Stack](./mcp-stack/) | Custom + composed MCP servers | 5 custom servers (HubSpot, Outreach, LinkedIn, Unify) on Cloud Run |
 | ⭐ System | [Attribution Engine](./attribution-engine/) | 7-channel demo-attribution agent | **~40%** of "Direct" deals re-attributed; 30-60 min → **5-10 min** |
 | System | [Account-Research Agent](./account-research-agent/) | Multi-agent AE call prep | pre-call research **1-3 hrs → 5-10 min** |
 | System | [Personalized Outbound](./personalized-outbound/) | 19-persona cold-email system | reply rate **~3% → ~9%** |
 | System | [GEO Content Engine](./geo-content-engine/) | AI-visibility glossary program | **~100** AI-citable pages · **~339K** monthly searches · 12-agent build |
 | System | [Interactive Demos & Animations](./interactive-demos/) | Vibe-coded product demos + animations on a production site | **#1 contributor** to the home product UI · 20 animation components, live |
+| 🧪 Personal project | [Semantic Search (RAG) MCP Server](./semantic-search-mcp/) | Local RAG layer + MCP server over a personal knowledge vault | spec-driven, locked decision log, **the only piece here with a test suite** |
+
+🧪 = a personal, self-directed project (technical curriculum, not built inside a company's revenue org) — everything else in this table was.
 
 **Who:** GTM operator (sales + marketing + hands-on AI) · 📍 SF · open to GTM Engineer / GTM Lead.
 **Contact:** heeguneom@gmail.com · [LinkedIn](https://www.linkedin.com/in/heeguneom/) · Full detail below.
@@ -79,6 +82,18 @@ The front-end side of marketing engineering. I vibe-coded a large part of a prod
 
 ---
 
+## Personal project — outside the company scope above
+
+Everything above was built and run inside a B2B AI company's revenue org. This one wasn't: it's a self-directed technical-curriculum project, over my own personal knowledge vault, on my own time. I'm keeping it clearly separate rather than blending it into the company-scoped work above.
+
+### [Semantic Search (RAG) MCP Server](./semantic-search-mcp/)
+A local RAG layer over a personal knowledge vault (~556 files, ~1.04M words): markdown chunked by heading, embedded locally (`all-MiniLM-L6-v2`, no paid API, no data leaving the machine), served through a custom FastMCP server (`semantic_search`, `reindex`) alongside a `suggest_links` tool that reuses the same embeddings at zero extra cost. Built spec-first, with a locked decision log and an actual test suite, the only piece in this portfolio that has one.
+
+**Stack:** Python (`uv`) · `sentence-transformers` · NumPy · FastMCP · flat-file vector index
+**Why it's here:** the rest of this portfolio shows GTM judgment applied through AI systems; this shows the underlying ML/infra mechanics (chunking, embeddings, similarity search, spec-driven build process) understood and built from scratch, not just consumed through a framework.
+
+---
+
 ## What this body of work demonstrates
 
 - **Context engineering for AI:** structuring company knowledge so agents can retrieve and reason over it, the prerequisite for any serious AI-native GTM motion.
@@ -86,6 +101,7 @@ The front-end side of marketing engineering. I vibe-coded a large part of a prod
 - Fluency across the **full modern GTM stack** and the APIs and query languages behind each tool.
 - **GTM judgment** — knowing which signals to trust and why — which is the part that cannot be automated without understanding the work.
 - An **engineering mindset**: deterministic flows, graceful failure handling, and correctness on the small things that quietly break go-to-market systems.
+- **Applied ML fundamentals, self-taught:** chunking, local embeddings, vector similarity, and spec-first infrastructure design, built and tested on personal time, not just applied through existing GTM tooling.
 
 ## Background
 

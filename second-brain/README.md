@@ -31,6 +31,12 @@ A single, structured knowledge base, maintained as an **Obsidian vault**, that t
 | Product & competitive intelligence | product intelligence, competitive landscapes, prospect analysis |
 | Compliance & ops | third-party ToS / privacy frameworks |
 
+## Retrieval: from frontmatter-discoverable to semantically searchable
+
+Everything below describes how the corpus is *organized*. Separately (as a personal, self-directed project, not part of the company-scoped work in the rest of this portfolio — see [Semantic Search (RAG) MCP Server](../semantic-search-mcp/)), I built a local RAG layer on top of this same vault: every document chunked and embedded locally, served through a custom MCP server, so an agent can retrieve conceptually relevant material by meaning, not just by matching frontmatter or exact keywords. Structured frontmatter and semantic search are complementary, not competing: frontmatter is precise for "what domain is this," embeddings are precise for "what's conceptually related to this, even if worded differently."
+
+The vault has also grown since this system was first documented, from ~340 tracked documents to ~556 files (~1.04M words) at last count, growth the semantic layer has to keep pace with, which is exactly why `reindex` is exposed as a callable tool rather than a one-time script.
+
 ## How it works
 
 ```mermaid
