@@ -1,0 +1,6 @@
+tmp/
+.venv/
+__pycache__/
+*.pyc
+index_data/
+*.npy
