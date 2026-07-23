@@ -23,6 +23,27 @@ A local semantic search layer over the vault, exposed as a custom MCP server, so
 **Stack:** Python (`uv`) · `sentence-transformers` (`all-MiniLM-L6-v2`) · NumPy · FastMCP · flat-file index (JSON + `.npy`)
 **Scale:** ~556 files · ~1.04M words · ~1,800 chunks · sub-second query latency · full reindex in ~2 minutes
 
+```mermaid
+flowchart LR
+    V[("Vault<br/>~556 files<br/>~1.04M words")]:::source
+    V --> C["Chunk by heading<br/>~600-word cap"]:::step
+    C --> E["Embed locally<br/>all-MiniLM-L6-v2"]:::step
+    E --> I[("Index<br/>JSON + .npy<br/>flat file, no vector DB")]:::store
+    I --> S["MCP Server<br/>FastMCP · stdio"]:::server
+    S --> Q["semantic_search(query, top_k)"]:::tool
+    S --> R["reindex()"]:::tool
+    Q --> CL(["Claude Code session"]):::consumer
+    R -.->|"rebuilds from scratch"| I
+
+    classDef source fill:#2E3A4F,stroke:#2E3A4F,color:#ffffff;
+    classDef step fill:#E8F0FE,stroke:#3B6FE0,color:#1A1A1A;
+    classDef store fill:#F1F1F1,stroke:#999999,color:#1A1A1A;
+    classDef server fill:#FFF4E5,stroke:#E0903B,color:#1A1A1A;
+    classDef tool fill:#E8F0FE,stroke:#3B6FE0,color:#1A1A1A;
+    classDef consumer fill:#2E3A4F,stroke:#2E3A4F,color:#ffffff;
+```
+*Everything left of the MCP server runs locally and offline; nothing but the query and returned snippets ever reaches a Claude session.*
+
 ## Built like real infrastructure, not a script
 
 The part of this I'm most proud of isn't the retrieval, it's the process. Before writing code, I wrote a full spec: problem statement, goals *and explicit non-goals*, and a **locked decision log** covering ten decisions with rationale and confidence level, for example:
@@ -41,6 +62,38 @@ Once chunks are embedded, I built a `suggest_links` tool on top of the same inde
 ## How this coexists with Second Brain's knowledge graph
 
 Second Brain's actual navigational structure is an Obsidian **wiki-link graph**: explicit `[[links]]` between documents, hand-authored whenever I write a report that references prior work. That graph is precise but incomplete, it only contains a connection if I happened to notice it and typed the link. The RAG layer doesn't replace that graph or write to it, it **audits** it:
+
+```mermaid
+flowchart TD
+    subgraph Graph["Knowledge graph — human-authored"]
+        direction LR
+        D1["Doc A"]:::doc -->|"[[link]]"| D2["Doc B"]:::doc
+        D3["Doc C"]:::doc
+        D4["Doc D"]:::doc
+    end
+
+    subgraph Semantic["Semantic layer — machine-computed"]
+        direction LR
+        EMB["Per-file centroid<br/>embeddings<br/>(reused, zero extra cost)"]:::emb
+    end
+
+    D1 -.->|chunks| EMB
+    D2 -.->|chunks| EMB
+    D3 -.->|chunks| EMB
+    D4 -.->|chunks| EMB
+
+    EMB --> SL["suggest_links()<br/>ranks similar-but-unlinked pairs"]:::tool
+    Graph -->|"already-linked pairs<br/>parsed from text"| SL
+    SL --> DIG["Weekly digest<br/>suggest-only, never writes"]:::tool
+    DIG -->|reviews| HUM(("HeeGun")):::human
+    HUM -.->|"adds real [[links]]"| Graph
+
+    classDef doc fill:#E8F0FE,stroke:#3B6FE0,color:#1A1A1A;
+    classDef emb fill:#F1F1F1,stroke:#999999,color:#1A1A1A;
+    classDef tool fill:#FFF4E5,stroke:#E0903B,color:#1A1A1A;
+    classDef human fill:#2E3A4F,stroke:#2E3A4F,color:#ffffff;
+```
+*The loop closes through a person on purpose: `suggest_links` only ever proposes an edge, it never writes one — Doc C and Doc D above are a candidate, not a confirmed connection, until reviewed.*
 
 - **`suggest_links`** reuses the exact same chunk embeddings the indexer already computed, no new embedding cost, by mean-pooling each file's chunks into one per-file "centroid" vector, then ranking file *pairs* by cosine similarity between centroids (cheap: file-count-squared comparisons instead of chunk-count-squared).
 - It cross-references those high-similarity pairs against the graph as it exists today, parsed directly from the already-loaded chunk text (handling `[[Target]]`, `[[Target|Display]]`, and `[[Target#Heading]]` forms), and surfaces only the pairs that are **semantically close but not yet linked**, candidate edges the graph is missing.
