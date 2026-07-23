@@ -66,34 +66,28 @@ Second Brain's actual navigational structure is an Obsidian **wiki-link graph**:
 ```mermaid
 flowchart TD
     subgraph Graph["Knowledge graph — human-authored"]
-        direction LR
-        D1["Doc A"]:::doc -->|"[[link]]"| D2["Doc B"]:::doc
-        D3["Doc C"]:::doc
-        D4["Doc D"]:::doc
+        A["Doc A"]:::doc -->|"[[link]]"| B["Doc B"]:::doc
+        C["Doc C"]:::doc
+        D["Doc D"]:::doc
     end
 
-    subgraph Semantic["Semantic layer — machine-computed"]
-        direction LR
-        EMB["Per-file centroid<br/>embeddings<br/>(reused, zero extra cost)"]:::emb
-    end
+    A --> EMB["Per-file centroid embeddings<br/>reused, zero extra cost"]:::emb
+    B --> EMB
+    C --> EMB
+    D --> EMB
 
-    D1 -.->|chunks| EMB
-    D2 -.->|chunks| EMB
-    D3 -.->|chunks| EMB
-    D4 -.->|chunks| EMB
-
-    EMB --> SL["suggest_links()<br/>ranks similar-but-unlinked pairs"]:::tool
-    Graph -->|"already-linked pairs<br/>parsed from text"| SL
+    Graph -.->|"already-linked pairs,<br/>parsed from text"| SL
+    EMB --> SL["suggest_links()<br/>ranks similar, unlinked pairs"]:::tool
     SL --> DIG["Weekly digest<br/>suggest-only, never writes"]:::tool
-    DIG -->|reviews| HUM(("HeeGun")):::human
-    HUM -.->|"adds real [[links]]"| Graph
+    DIG --> HUM(("HeeGun")):::human
+    HUM -.->|"adds real links"| Graph
 
     classDef doc fill:#E8F0FE,stroke:#3B6FE0,color:#1A1A1A;
     classDef emb fill:#F1F1F1,stroke:#999999,color:#1A1A1A;
     classDef tool fill:#FFF4E5,stroke:#E0903B,color:#1A1A1A;
     classDef human fill:#2E3A4F,stroke:#2E3A4F,color:#ffffff;
 ```
-*The loop closes through a person on purpose: `suggest_links` only ever proposes an edge, it never writes one — Doc C and Doc D above are a candidate, not a confirmed connection, until reviewed.*
+*The loop closes through a person on purpose: `suggest_links` only ever proposes an edge, it never writes one. Doc A and Doc B already have an explicit `[[link]]`; Doc C and Doc D don't, if they score high enough on similarity, they surface in the digest as a candidate, not a confirmed connection, until reviewed.*
 
 - **`suggest_links`** reuses the exact same chunk embeddings the indexer already computed, no new embedding cost, by mean-pooling each file's chunks into one per-file "centroid" vector, then ranking file *pairs* by cosine similarity between centroids (cheap: file-count-squared comparisons instead of chunk-count-squared).
 - It cross-references those high-similarity pairs against the graph as it exists today, parsed directly from the already-loaded chunk text (handling `[[Target]]`, `[[Target|Display]]`, and `[[Target#Heading]]` forms), and surfaces only the pairs that are **semantically close but not yet linked**, candidate edges the graph is missing.
