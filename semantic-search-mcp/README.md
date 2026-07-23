@@ -61,7 +61,9 @@ Once chunks are embedded, I built a `suggest_links` tool on top of the same inde
 
 ## How this coexists with Second Brain's knowledge graph
 
-Second Brain's actual navigational structure is an Obsidian **wiki-link graph**: explicit `[[links]]` between documents, hand-authored whenever I write a report that references prior work. That graph is precise but incomplete, it only contains a connection if I happened to notice it and typed the link. The RAG layer doesn't replace that graph or write to it, it **audits** it:
+Second Brain's navigational structure is an Obsidian **wiki-link graph**: explicit `[[links]]` between documents. The honest starting point: I measured it before building anything, and the graph barely existed, only **2 genuine cross-document links across all 561 files**. My original plan was to fuse RAG with "the knowledge graph that already exists," a GraphRAG pattern, but that premise was false for this vault. I pivoted the spec from *fusing with* a graph to *building* one: reuse the same embeddings to suggest links a human reviews and confirms, then automate that suggestion process on a schedule.
+
+**Result of the first real pass:** 2 links → **28 new links across 26 files** (30 files now have at least one connection). Not a demo number, the actual before/after on my own vault.
 
 ```mermaid
 flowchart TD
@@ -94,7 +96,8 @@ flowchart TD
 - **Fail-open by design:** if a `[[link]]`'s target is ambiguous (matches zero or multiple files), it's treated as "not linked" rather than guessed at, a redundant suggestion is a cheap mistake; a real gap silently marked "already covered" is not.
 - **Suggest-only, never writes:** the tool (and the automation built on it) never inserts a link itself. It produces a ranked list; a human decides whether the connection is real.
 - **Noise, found empirically and excluded precisely:** the first real run put near-duplicate tailored resumes at the top of the list (95 files sharing one template, scoring 0.97-1.0 against each other, crowding out 14 of the top 15 results). Rather than a broad heuristic, I added a precise filename-pattern exclusion once the actual failure mode was visible, engineering informed by real output, not speculation.
-- **Automated on a schedule:** a weekly job reindexes the vault, calls `suggest_links`, filters known noise clusters, dedupes against pairs already surfaced in a prior week, and writes a plain digest file, so the graph gets a standing, low-effort audit instead of relying on me remembering to check.
+- **A real bug, found and fixed after real use:** after inserting the first 26 links, I reindexed and reran `suggest_links` expecting a just-linked pair to disappear. It didn't. Root cause: link resolution only ever matched a bare filename, but the newly-inserted links used full relative paths (needed because 53 separate files in the vault are all literally named `REPORT.md`, so a bare-name match is ambiguous). Fixed to try a full-path match first, falling back to basename, added a regression test, reverified against the real data.
+- **Automated on a schedule:** a weekly job reindexes the vault, calls `suggest_links`, filters known noise clusters, dedupes against pairs already surfaced in a prior week, and writes a plain digest file, keeping the graph growing without relying on me remembering to check.
 
 In a live session, the two systems serve different moments: `semantic_search` finds the right *entry point* by meaning when I don't know what to search for by name; the wiki-link graph then lets whoever's reading (me, or Claude) *navigate outward* from that document via its existing explicit connections. The RAG layer's job is finding the door; the graph's job is the rooms connected to it.
 
