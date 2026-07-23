@@ -65,7 +65,7 @@ Second Brain's actual navigational structure is an Obsidian **wiki-link graph**:
 
 ```mermaid
 flowchart TD
-    subgraph Graph["Knowledge graph — human-authored"]
+    subgraph Graph["Knowledge graph"]
         A["Doc A"]:::doc -->|"[[link]]"| B["Doc B"]:::doc
         C["Doc C"]:::doc
         D["Doc D"]:::doc
